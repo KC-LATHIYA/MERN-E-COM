@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-const BASE_URL = "http://localhost:3000/api"
+const BASE_URL = "import.meta.env.BACKEND_URL/api"
 
 export const wishlistAPI = createApi({
     reducerPath: "wishlistAPI",

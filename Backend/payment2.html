@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Razorpay Test Checkout</title>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <link rel="icon" href="data:,">
+</head>
+
+<body>
+  <h2>Test LMS Payment</h2>
+  <button id="rzp-button">Pay Now</button>
+
+  <script>
+    // const orderId = "68c16ad6c5ab85a329d7d805"; // Replace with real courseId
+    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGMxM2MxN2FhZmExZDc5ZDM4ZmIxNDMiLCJ1c2VybmFtZSI6ImRlZXAiLCJlbWFpbCI6ImxhdGhpeWFkZWVwQGdtYWlsLmNvbSIsImlhdCI6MTc1NzU3OTc3MCwiZXhwIjoxNzU3NjY2MTcwfQ.W5JnvqJ2gu1NwhTxEQD8O4KUnvr78Jwuq4j8P1aYxBY"; // Replace with user's auth token
+
+    document.getElementById("rzp-button").onclick = async function (e) {
+      e.preventDefault();
+
+      // Step 1: Create Order from Backend
+      const orderRes = await fetch("http://localhost:3000/api/orders/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          orderItems: [
+            { product: "68c0015937b011dfc8e23895", quantity: 1, name: "T-shirt" }
+          ],
+          shippingAddress: "E-301, Opera City, Near Manisha Garnala, Utran, Surat-394015",
+          paymentMethod: "Razorpay"
+        }),
+      });
+
+      const orderData = await orderRes.json();
+
+      const backendOrderId = orderData.data.orderId
+
+      if (!orderData?.data?.razorpayOrder?.id) {
+        alert("Failed to create order");
+        return;
+      }
+
+      const options = {
+        key: orderData.data.key,
+        amount: orderData.data.razorpayOrder.amount, // already in paise
+        currency: "INR",
+        name: "Your Order",
+        description: `Enroll in Order ${orderData.data.orderId}`,
+        order_id: orderData.data.razorpayOrder.id,
+        handler: async function (response) {
+          alert("Payment successful! Verifying...");
+
+          const verifyRes = await fetch("http://localhost:3000/api/payment/verify", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+              orderId: backendOrderId,
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_signature: response.razorpay_signature,
+            }),
+          });
+
+          const verifyData = await verifyRes.json();
+          if (verifyData.success) {
+            alert("Enrollment successful!");
+          } else {
+            alert("Payment verification failed.");
+          }
+
+          console.log("Verify Response:", verifyData);
+        },
+        prefill: {
+          name: "Test User",
+          email: "test@example.com",
+        },
+        theme: {
+          color: "#3399cc",
+        },
+      };
+
+      const rzp = new Razorpay(options);
+      rzp.open();
+    };
+  </script>
+</body>
+
+</html>

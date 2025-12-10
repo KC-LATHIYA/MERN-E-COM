@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-const BASE_URL = "import.meta.env.BACKEND_URL/api"
+const BASE_URL = import.meta.env.BACKEND_URL
 
 export const orderAPI = createApi({
     reducerPath: "orderAPi",
@@ -12,23 +12,23 @@ export const orderAPI = createApi({
     endpoints: (builder) => ({
 
         GetAllOrderDetaild: builder.query({
-            query: () => "/orders/myorders",
+            query: () => "/api/orders/myorders",
             providesTags: ["Order"]
         }),
 
         GetOrderDetailsById: builder.query({
-            query: (id) => `/orders/${id}`,
+            query: (id) => `/api/orders/${id}`,
             providesTags: ["Order"]
         }),
 
         GetOrderDetailsByIdAdmin: builder.query({
-            query: (id) => `/admin/orders/${id}`,
+            query: (id) => `/api/admin/orders/${id}`,
             providesTags: ["Order"]
         }),
 
         CreateOrder: builder.mutation({
             query: (data) => ({
-                url: "/orders/create",
+                url: "/api/orders/create",
                 method: "POST",
                 body: data
             }),
@@ -37,7 +37,7 @@ export const orderAPI = createApi({
 
         VerifyPayment: builder.mutation({
             query: (data) => ({
-                url: "/payment/verify",
+                url: "/api/payment/verify",
                 method: "POST",
                 body: data
             }),
@@ -45,13 +45,13 @@ export const orderAPI = createApi({
         }),
 
         GetAllOrder: builder.query({
-            query: () => "/orders",
+            query: () => "/api/orders",
             providesTags: ["Order"]
         }),
 
         MarkedAsPaid: builder.mutation({
             query: (id) => ({
-                url: `/orders/${id}/pay`,
+                url: `/api/orders/${id}/pay`,
                 method: "PATCH"
             }),
             invalidatesTags: ["Order"]
@@ -59,7 +59,7 @@ export const orderAPI = createApi({
 
         MarkedAsDeliver: builder.mutation({
             query: (id) => ({
-                url: `/orders/${id}/deliver`,
+                url: `/api/orders/${id}/deliver`,
                 method: "PATCH"
             }),
             invalidatesTags: ["Order"]

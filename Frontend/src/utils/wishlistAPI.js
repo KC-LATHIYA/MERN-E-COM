@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-const BASE_URL = "import.meta.env.BACKEND_URL/api"
+const BASE_URL = import.meta.env.BACKEND_URL
 
 export const wishlistAPI = createApi({
     reducerPath: "wishlistAPI",
@@ -12,13 +12,13 @@ export const wishlistAPI = createApi({
     endpoints: (builder) => ({
 
         getUserWishlist: builder.query({
-            query: () => "/wishlist",
+            query: () => "/api/wishlist",
             providesTags: ["Wishlist"]
         }),
 
         addItemToWishlist: builder.mutation({
             query: ({ id, data }) => ({
-                url: `/wishlist/${id}`,
+                url: `/api/wishlist/${id}`,
                 method: "POST",
                 body: data
             }),
@@ -27,7 +27,7 @@ export const wishlistAPI = createApi({
 
         removeItemFromWishlist: builder.mutation({
             query: (productId) => ({
-                url: `/wishlist/${productId}`,
+                url: `/api/wishlist/${productId}`,
                 method: "DELETE"
             }),
             invalidatesTags: ["Wishlist"]

@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-const BASE_URL = "import.meta.env.BACKEND_URL/api"
+const BASE_URL = import.meta.env.BACKEND_URL
 
 export const cartAPI = createApi({
     reducerPath: "cartAPI",
@@ -12,13 +12,13 @@ export const cartAPI = createApi({
     endpoints: (builder) => ({
 
         GetUserCart: builder.query({
-            query: () => "/cart",
+            query: () => "/api/cart",
             providesTags: ["Cart"]
         }),
 
         AddItemIncart: builder.mutation({
             query: ({ id, data }) => ({
-                url: `/cart/${id}`,
+                url: `/api/cart/${id}`,
                 method: "POST",
                 body: data
             }),
@@ -27,7 +27,7 @@ export const cartAPI = createApi({
 
         UpdateQuantityOfItem: builder.mutation({
             query: ({ id, data }) => ({
-                url: `/cart/${id}`,
+                url: `/api/cart/${id}`,
                 method: "PATCH",
                 body: data
             }),
@@ -36,7 +36,7 @@ export const cartAPI = createApi({
 
         RemoveItemFromCart: builder.mutation({
             query: (id) => ({
-                url: `/cart/${id}`,
+                url: `/api/cart/${id}`,
                 method: "DELETE"
             }),
             invalidatesTags: ["Cart"]

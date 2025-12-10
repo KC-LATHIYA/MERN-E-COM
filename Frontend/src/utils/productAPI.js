@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-const BASE_URL = "import.meta.env.BACKEND_URL/api"
+const BASE_URL = import.meta.env.BACKEND_URL
 
 export const productAPI = createApi({
     reducerPath: "productAPI",
@@ -13,18 +13,18 @@ export const productAPI = createApi({
 
         GetAllProduct: builder.query({
             query: ({ keyword, category, sort } = {}) =>
-                `/get-allproducts?keyword=${encodeURIComponent(keyword || "")}&category=${encodeURIComponent(category || "")}&sort=${encodeURIComponent(sort || "")}`,
+                `/api/get-allproducts?keyword=${encodeURIComponent(keyword || "")}&category=${encodeURIComponent(category || "")}&sort=${encodeURIComponent(sort || "")}`,
             providesTags: ["Product"]
         }),
 
         GetProductById: builder.query({
-            query: (id) => `/product/${id}`,
+            query: (id) => `/api/product/${id}`,
             providesTags: ["Product"]
         }),
 
         CreateProduct: builder.mutation({
             query: (data) => ({
-                url: "/product/create",
+                url: "/api/product/create",
                 method: "POST",
                 body: data
             }),
@@ -33,7 +33,7 @@ export const productAPI = createApi({
 
         UpdateProduct: builder.mutation({
             query: ({ id, data }) => ({
-                url: `/product/${id}`,
+                url: `/api/product/${id}`,
                 method: "PATCH",
                 body: data
             }),
@@ -42,7 +42,7 @@ export const productAPI = createApi({
 
         DeleteProduct: builder.mutation({
             query: (id) => ({
-                url: `/product/${id}`,
+                url: `/api/product/${id}`,
                 method: "DELETE",
             }),
             invalidatesTags: ["Product"]
@@ -50,7 +50,7 @@ export const productAPI = createApi({
 
         reviewProduct: builder.mutation({
             query: ({ id, data }) => ({
-                url: `/product/review/${id}`,
+                url: `/api/product/review/${id}`,
                 method: "POST",
                 body: data
             }),

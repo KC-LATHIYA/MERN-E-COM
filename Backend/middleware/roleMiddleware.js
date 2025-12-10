@@ -1,6 +1,6 @@
 import User from "../model/user.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
-import { ApiError } from "../../../job-portel/Backend/utils/apierror.js";
+import { ApiError } from "../utils/apiError.js";
 
 const roleMiddleware = (...roles) => {
 

@@ -1,6 +1,6 @@
 import Product from "../model/product.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
-import { ApiError } from "../../../job-portel/Backend/utils/apierror.js";
+import { ApiError } from "../utils/apiError.js";
 import { ApiResponse } from "../utils/apiResponse.js";
 import uploadOnCloudinary from "../utils/Cloudinary.js";
 import { v2 as cloudinary } from "cloudinary";

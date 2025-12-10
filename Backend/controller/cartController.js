@@ -1,6 +1,6 @@
 import Cart from "../model/cart.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
-import { ApiError } from "../../../job-portel/Backend/utils/apierror.js";
+import { ApiError } from "../utils/apiError.js";
 import { ApiResponse } from "../utils/apiResponse.js";
 import Product from "../model/product.js";
 

@@ -1,6 +1,6 @@
 import User from "../model/user.js"
 import jwt from "jsonwebtoken"
-import { ApiError } from "../../../job-portel/Backend/utils/apierror.js"
+import { ApiError } from "../utils/apiError.js";
 import { asyncHandler } from "../utils/asyncHandler.js"
 
 const verifyUser = asyncHandler(async function (req, res, next) {

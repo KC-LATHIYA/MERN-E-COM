@@ -18,7 +18,7 @@ const routes = e.Router();
 routes.post("/register", validate(signupSchema), registerUser);
 routes.post("/login", validate(signinSchema), loginUser);
 routes.post("/logout", verifyUser, logoutUser);
-routes.post("/refresh-accesstoken", verifyUser, refreshAccessToken);
+routes.post("/refresh-accesstoken", refreshAccessToken);
 routes.get("/my-profile", verifyUser, getMyProfile)
 routes.patch("/update-profile", verifyUser, updateUserProfile);
 routes.patch("/change-password", verifyUser, changePassword);

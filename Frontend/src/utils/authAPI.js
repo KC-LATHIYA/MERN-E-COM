@@ -12,7 +12,7 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
     let result = await baseQuery(args, api, extraOptions);
 
     if (result?.error?.status === 401) {
-        const refreshResult = await baseQuery("/auth/refresh-accesstoken", api, extraOptions);
+        const refreshResult = await baseQuery("/api/auth/refresh-accesstoken", api, extraOptions);
 
         if (refreshResult?.data?.accessToken) {
             result = await baseQuery(args, api, extraOptions);
@@ -32,7 +32,7 @@ export const authAPI = createApi({
 
         Registeruser: builder.mutation({
             query: (data) => ({
-                url: "/auth/register",
+                url: "/api/auth/register",
                 method: "POST",
                 body: data
             })
@@ -40,7 +40,7 @@ export const authAPI = createApi({
 
         Loginuser: builder.mutation({
             query: (data) => ({
-                url: "/auth/login",
+                url: "/api/auth/login",
                 method: "POST",
                 body: data
             }),
@@ -57,7 +57,7 @@ export const authAPI = createApi({
 
         Logoutuser: builder.mutation({
             query: () => ({
-                url: "/auth/logout",
+                url: "/api/auth/logout",
                 method: "POST"
             }),
             async onQueryStarted(_, { queryFulfilled, dispatch }) {
@@ -72,7 +72,7 @@ export const authAPI = createApi({
         }),
 
         Myprofile: builder.query({
-            query: () => "/auth/my-profile",
+            query: () => "/api/auth/my-profile",
             async onQueryStarted(_, { queryFulfilled, dispatch }) {
                 try {
                     const result = await queryFulfilled;
@@ -86,7 +86,7 @@ export const authAPI = createApi({
 
         Updateprofile: builder.mutation({
             query: (data) => ({
-                url: "/auth/update-profile",
+                url: "/api/auth/update-profile",
                 method: "PATCH",
                 body: data
             }),
@@ -103,7 +103,7 @@ export const authAPI = createApi({
 
         Updatepassword: builder.mutation({
             query: (data) => ({
-                url: "/auth/change-password",
+                url: "/api/auth/change-password",
                 method: "PATCH",
                 body: data
             }),

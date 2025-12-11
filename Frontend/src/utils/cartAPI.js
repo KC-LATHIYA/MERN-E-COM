@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-const BASE_URL = import.meta.env.BACKEND_URL
+const BASE_URL = import.meta.env.VITE_BACKEND_URL
 
 export const cartAPI = createApi({
     reducerPath: "cartAPI",

@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { LoginUser, LogoutUser } from "../store/authSlice.js"
 
-const BASE_URL = import.meta.env.BACKEND_URL
+const BASE_URL = import.meta.env.VITE_BACKEND_URL
 
 const baseQuery = fetchBaseQuery({
     baseUrl: BASE_URL,

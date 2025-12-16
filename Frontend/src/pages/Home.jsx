@@ -200,7 +200,7 @@ const HomePage = () => {
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                         <h1 className="text-4xl sm:text-6xl font-bold mb-6 leading-tight">
                             Summer Fashion
-                            <span className="block text-blue-400">Collection 2024</span>
+                            <span className="block text-blue-400">Collection 2025</span>
                         </h1>
                         <p className="text-xl sm:text-2xl text-gray-300 mb-8 max-w-2xl mx-auto">
                             Discover the latest trends in fashion with our exclusive collection
